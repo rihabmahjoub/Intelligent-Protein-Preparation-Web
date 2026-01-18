@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Protein Preparation Web Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>🧬 Protein Preparation Tool</h1>
+    <p>Enter a PDB ID to evaluate protein quality</p>
+
+    <form method="POST">
+        <input type="text" name="pdb_id" placeholder="Example: 5K5X" required>
+        <button type="submit">Prepare Protein</button>
+    </form>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+</div>
+
+</body>
+</html>
+

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Protein Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>🧪 Protein Quality Report</h1>
+
+    <ul>
+        <li><strong>PDB ID:</strong> {{ pdb_id }}</li>
+        <li><strong>Quality score:</strong> {{ score }}/100</li>
+        <li><strong>Missing gaps:</strong> {{ gaps }}</li>
+        <li><strong>Atom count:</strong> {{ atoms }}</li>
+    </ul>
+
+    <div id="viewer" style="width: 600px; height: 400px;"></div>
+
+    <script>
+        let viewer = $3Dmol.createViewer("viewer");
+        fetch("/static/{{ pdb_file }}")
+            .then(r => r.text())
+            .then(pdb => {
+                viewer.addModel(pdb, "pdb");
+                viewer.setStyle({}, {cartoon: {color: "spectrum"}});
+                viewer.zoomTo();
+                viewer.render();
+            });
+    </script>
+
+    <a href="/">⬅ Back</a>
+</div>
+
+</body>
+</html>
+
